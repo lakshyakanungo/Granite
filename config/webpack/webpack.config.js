@@ -25,7 +25,13 @@ const commonOptions = {
   mode,
   infrastructureLogging: { level: "warn" },
   devtool,
-  resolve,
+  resolve: {
+    alias: {
+      apis: absolutePath("src/apis"),
+      common: absolutePath("src/common"),
+      components: absolutePath("src/components"),
+    },
+  },
   module: { rules },
   plugins: [
     new webpack.ProvidePlugin({ process: "process/browser" }),
