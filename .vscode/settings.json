@@ -17,5 +17,5 @@
       "rails": true // requires rubocop-rails gem for RuboCop >= 0.72.0
     }
   },
-  "ruby.format": "rubocop",
+  "ruby.format": "rubocop"
 }
