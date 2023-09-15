@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :tasks, only: %i[index create], param: :slug
+  resources :tasks, only: %i[index create show], param: :slug
 
   # Defines the root path route ("/")
   # root "articles#index"
