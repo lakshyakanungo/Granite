@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
     when -> (e) { e.message.include?("PG::") || e.message.include?("SQLite3::") }
       handle_database_level_exception(exception)
 
-    when Pundit::NotAuthorizedError
-      handle_authorization_error
+    # when Pundit::NotAuthorizedError
+    #   handle_authorization_error
 
     when ActionController::ParameterMissing
       render_error(exception, :internal_server_error)
