@@ -85,6 +85,7 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     base64 (0.1.1)
+    bcrypt (3.1.19)
     better_html (2.0.2)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -254,6 +255,7 @@ PLATFORMS
   x86_64-darwin-22
 
 DEPENDENCIES
+  bcrypt (~> 3.1.13)
   bootsnap
   debug
   erb_lint!
