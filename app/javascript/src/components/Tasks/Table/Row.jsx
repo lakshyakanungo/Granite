@@ -16,6 +16,12 @@ const Row = ({ data, destroyTask, showTask }) => (
             <div className="truncate max-w-64 ">{rowData.title}</div>
           </Tooltip>
         </td>
+        <td
+          className="px-6 py-4 text-sm font-medium
+            leading-5 text-gray-900 whitespace-no-wrap"
+        >
+          {rowData.assigned_user.name}
+        </td>
         <td className="px-6 py-4 text-sm font-medium leading-5 text-right cursor-pointer">
           <a className="text-bb-purple" onClick={() => showTask(rowData.slug)}>
             Show
