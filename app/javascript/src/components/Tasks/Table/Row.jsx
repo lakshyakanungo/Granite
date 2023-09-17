@@ -11,20 +11,21 @@ const Row = ({
   destroyTask,
   showTask,
   handleProgressToggle,
+  starTask,
 }) => {
   const isCompleted = type === "completed";
   const toggledProgress = isCompleted ? "pending" : "completed";
 
   return (
-    <tbody className="bg-white divide-y divide-bb-gray-600">
+    <tbody className="bg-white divide-y divide-gray-200">
       {data.map(rowData => (
         <tr key={rowData.id}>
-          <td className="px-6 py-4 text-center">
+          <td className="text-center">
             <input
               checked={isCompleted}
               type="checkbox"
               className="ml-6 w-4 h-4 text-bb-purple border-gray-300
-               rounded form-checkbox focus:ring-bb-purple cursor-pointer"
+                  rounded focus:ring-bb-purple cursor-pointer"
               onChange={() =>
                 handleProgressToggle({
                   slug: rowData.slug,
@@ -38,8 +39,8 @@ const Row = ({
               "block w-64 px-6 py-4 text-sm font-medium leading-8 text-bb-purple capitalize truncate",
               {
                 "cursor-pointer": !isCompleted,
-              },
-              { "text-opacity-50": isCompleted }
+                "text-opacity-50": isCompleted,
+              }
             )}
             onClick={() => !isCompleted && showTask(rowData.slug)}
           >
@@ -48,17 +49,35 @@ const Row = ({
             </Tooltip>
           </td>
           {!isCompleted && (
-            <td
-              className="px-6 py-4 text-sm font-medium leading-5
-             text-bb-gray-600 whitespace-no-wrap"
-            >
-              {rowData.assigned_user.name}
-            </td>
+            <>
+              <td
+                className="px-6 py-4 text-sm font-medium leading-5
+                            text-bb-gray-600 whitespace-no-wrap"
+              >
+                {rowData.assigned_user.name}
+              </td>
+              <td className="pl-6 py-4 text-center cursor-pointer">
+                <i
+                  className={classnames(
+                    "transition duration-300 ease-in-out text-2xl hover:text-bb-yellow p-1",
+                    {
+                      "text-bb-border ri-star-line":
+                        rowData.status !== "starred",
+                    },
+                    {
+                      "text-white text-bb-yellow ri-star-fill":
+                        rowData.status === "starred",
+                    }
+                  )}
+                  onClick={() => starTask(rowData.slug, rowData.status)}
+                />
+              </td>
+            </>
           )}
           {isCompleted && (
             <>
               <td style={{ width: "164px" }} />
-              <td className="px-6 py-4 text-center cursor-pointer">
+              <td className="pl-6 py-4 text-center cursor-pointer">
                 <i
                   className="text-2xl text-center text-bb-border
                   transition duration-300 ease-in-out
@@ -80,6 +99,7 @@ Row.propTypes = {
   destroyTask: PropTypes.func,
   showTask: PropTypes.func,
   handleProgressToggle: PropTypes.func,
+  starTask: PropTypes.func,
 };
 
 export default Row;

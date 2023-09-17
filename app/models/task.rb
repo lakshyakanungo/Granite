@@ -6,6 +6,7 @@ class Task < ApplicationRecord
   RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
 
   enum :progress, { pending: "pending", completed: "completed" }, default: :pending
+  enum :status, { unstarred: "unstarred", starred: "starred" }, default: :unstarred
 
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
@@ -21,6 +22,14 @@ class Task < ApplicationRecord
   before_create :set_slug
 
   private
+
+    def self.of_status(progress)
+      if progress == :pending
+        pending.in_order_of(:status, %w(starred unstarred)).order("updated_at DESC")
+      else
+        completed.in_order_of(:status, %w(starred unstarred)).order("updated_at DESC")
+      end
+    end
 
     def set_slug
       title_slug = title.parameterize
