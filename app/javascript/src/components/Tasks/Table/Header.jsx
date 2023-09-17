@@ -11,40 +11,29 @@ const Header = ({ type }) => {
     <thead>
       <tr>
         <th className="w-1" />
-        <th
-          className="px-6 py-3 text-xs font-bold
-        leading-4 tracking-wider text-left text-bb-gray-600
-        text-opacity-50 uppercase bg-gray-50"
-        >
+        <th className="bg-gray-50 px-6 py-3 text-left text-xs font-bold uppercase leading-4 tracking-wider text-bb-gray-600 text-opacity-50">
           {title}
         </th>
         {type === "pending" && (
-          <th
-            className="px-6 py-3 text-sm font-bold leading-4
-          tracking-wider text-left text-bb-gray-600
-          text-opacity-50 bg-gray-50"
-          >
+          <th className="bg-gray-50 px-6 py-3 text-left text-sm font-bold leading-4 tracking-wider text-bb-gray-600 text-opacity-50">
             Assigned To
           </th>
         )}
         {type === "completed" && (
           <>
             <th style={{ width: "164px" }} />
-            <th
-              className="pl-6 py-3 text-sm font-bold leading-4
-            tracking-wider text-center text-bb-gray-600
-            text-opacity-50 bg-gray-50"
-            >
+            <th className="bg-gray-50 py-3 pl-6 text-center text-sm font-bold leading-4 tracking-wider text-bb-gray-600 text-opacity-50">
               Delete
             </th>
           </>
         )}
         {type === "pending" && (
-          <th
-            className="pl-6 py-3 text-sm font-bold leading-4
-          tracking-wider text-center text-bb-gray-600
-          text-opacity-50 bg-gray-50"
-          >
+          <th className="bg-gray-50 py-3 text-center text-sm font-bold leading-4 tracking-wider text-bb-gray-600 text-opacity-50">
+            Comments
+          </th>
+        )}
+        {type === "pending" && (
+          <th className="bg-gray-50 py-3 pl-6 text-center text-sm font-bold leading-4 tracking-wider text-bb-gray-600 text-opacity-50">
             Starred
           </th>
         )}

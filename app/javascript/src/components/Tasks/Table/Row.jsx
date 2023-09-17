@@ -17,15 +17,14 @@ const Row = ({
   const toggledProgress = isCompleted ? "pending" : "completed";
 
   return (
-    <tbody className="bg-white divide-y divide-gray-200">
+    <tbody className="divide-y divide-gray-200 bg-white">
       {data.map(rowData => (
         <tr key={rowData.id}>
           <td className="text-center">
             <input
               checked={isCompleted}
+              className="form-checkbox ml-6 h-4 w-4 cursor-pointer rounded border-gray-300 text-bb-purple focus:ring-bb-purple"
               type="checkbox"
-              className="ml-6 w-4 h-4 text-bb-purple border-gray-300
-                  rounded focus:ring-bb-purple cursor-pointer"
               onChange={() =>
                 handleProgressToggle({
                   slug: rowData.slug,
@@ -36,7 +35,7 @@ const Row = ({
           </td>
           <td
             className={classnames(
-              "block w-64 px-6 py-4 text-sm font-medium leading-8 text-bb-purple capitalize truncate",
+              "block w-64 px-6 py-4 text-sm font-medium capitalize leading-8 text-bb-purple ",
               {
                 "cursor-pointer": !isCompleted,
                 "text-opacity-50": isCompleted,
@@ -45,27 +44,27 @@ const Row = ({
             onClick={() => !isCompleted && showTask(rowData.slug)}
           >
             <Tooltip content={rowData.title} delay={200} direction="top">
-              <div className="truncate max-w-64 ">{rowData.title}</div>
+              <div className="max-w-64 truncate ">{rowData.title}</div>
             </Tooltip>
           </td>
           {!isCompleted && (
             <>
-              <td
-                className="px-6 py-4 text-sm font-medium leading-5
-                            text-bb-gray-600 whitespace-no-wrap"
-              >
+              <td className="whitespace-no-wrap px-6 py-4 text-sm font-medium leading-5 text-bb-gray-600">
                 {rowData.assigned_user.name}
               </td>
-              <td className="pl-6 py-4 text-center cursor-pointer">
+              <td className="whitespace-no-wrap px-6 py-4 text-center text-sm font-medium leading-5 text-bb-gray-600">
+                {rowData.comments_count}
+              </td>
+              <td className="cursor-pointer py-4 pl-6 text-center">
                 <i
                   className={classnames(
-                    "transition duration-300 ease-in-out text-2xl hover:text-bb-yellow p-1",
+                    "p-1 text-2xl transition duration-300 ease-in-out hover:text-bb-yellow",
                     {
-                      "text-bb-border ri-star-line":
+                      "ri-star-line text-bb-border":
                         rowData.status !== "starred",
                     },
                     {
-                      "text-white text-bb-yellow ri-star-fill":
+                      "ri-star-fill text-white text-bb-yellow":
                         rowData.status === "starred",
                     }
                   )}
@@ -77,11 +76,9 @@ const Row = ({
           {isCompleted && (
             <>
               <td style={{ width: "164px" }} />
-              <td className="pl-6 py-4 text-center cursor-pointer">
+              <td className="cursor-pointer py-4 pl-6 text-center">
                 <i
-                  className="text-2xl text-center text-bb-border
-                  transition duration-300 ease-in-out
-                  ri-delete-bin-5-line hover:text-bb-red"
+                  className="ri-delete-bin-5-line text-center text-2xl text-bb-border transition duration-300 ease-in-out hover:text-bb-red"
                   onClick={() => destroyTask(rowData.slug)}
                 />
               </td>
