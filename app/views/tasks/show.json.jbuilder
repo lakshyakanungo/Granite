@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # json.task do
 #   json.id @task.id
 #   json.slug @task.slug
@@ -52,4 +54,3 @@ json.task do
       :name
   end
 end
-
