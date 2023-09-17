@@ -41,4 +41,5 @@ en:
   task:
     slug:
       immutable: "is immutable!"
+    not_found: "Couldn't find Task"
   generic_error: "Something went wrong. Please try again later."
