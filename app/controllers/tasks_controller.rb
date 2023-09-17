@@ -22,12 +22,13 @@ class TasksController < ApplicationController
     # render_json({ task: @task, assigned_user: @task.assigned_user })
     # render
     authorize @task
+    @comments = @task.comments.order("created_at DESC")
   end
 
   def update
     authorize @task
     @task.update!(task_params)
-    render_notice(t("successfully_updated"))
+    render_notice(t("successfully_updated", entity: "Task"))
   end
 
   def destroy

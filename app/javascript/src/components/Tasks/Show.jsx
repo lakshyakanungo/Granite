@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useParams, useHistory } from "react-router-dom";
 
+import commentsApi from "apis/comments";
 import tasksApi from "apis/tasks";
+import Comments from "components/Comments";
 import Container from "components/Container";
 import PageLoader from "components/PageLoader";
 
 const Show = () => {
   const [task, setTask] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [newComment, setNewComment] = useState("");
+  const [loading, setLoading] = useState(false);
   const { slug } = useParams();
 
   const history = useHistory();
@@ -30,6 +34,20 @@ const Show = () => {
     }
   };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      await commentsApi.create({ content: newComment, task_id: task.id });
+      fetchTaskDetails();
+      setNewComment("");
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchTaskDetails();
   }, []);
@@ -40,23 +58,36 @@ const Show = () => {
 
   return (
     <Container>
-      <h1 className="pb-3 pl-3 mt-3 mb-3 text-lg leading-5 text-gray-800 border-b border-gray-500">
-        <span className="text-gray-600">Task Title : </span> {task?.title}
-      </h1>
-      <div className="bg-bb-env px-2 mt-2 mb-4 rounded">
-        <i
-          className="text-2xl text-center transition cursor-pointer duration-300ease-in-out ri-edit-line hover:text-bb-yellow"
-          onClick={updateTask}
-        />
+      <div className="flex justify-between text-bb-gray-600 mt-10">
+        <h1 className="pb-3 mt-5 mb-3 text-lg leading-5 font-bold">
+          {task?.title}
+        </h1>
+        <div className="bg-bb-env px-2 mt-2 mb-4 rounded">
+          <i
+            className="text-2xl text-center transition duration-300
+             ease-in-out ri-edit-line hover:text-bb-yellow"
+            onClick={updateTask}
+          />
+        </div>
       </div>
-      <h2 className="pb-3 pl-3 mt-3 mb-3 text-lg leading-5 text-gray-800 border-b border-gray-500">
-        <span className="text-gray-600">Assigned To : </span>
+      <h2
+        className="pb-3 mb-3 text-md leading-5 text-bb-gray-600
+       text-opacity-50"
+      >
+        <span>Assigned To : </span>
         {task?.assigned_user.name}
       </h2>
       <h2 className="pb-3 mb-3 text-md leading-5 text-bb-gray-600 text-opacity-50">
         <span>Created By : </span>
         {task?.task_owner?.name}
       </h2>
+      <Comments
+        comments={task?.comments}
+        handleSubmit={handleSubmit}
+        loading={loading}
+        newComment={newComment}
+        setNewComment={setNewComment}
+      />
     </Container>
   );
 };
