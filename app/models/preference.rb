@@ -7,6 +7,6 @@ class Preference < ApplicationRecord
     numericality: { only_integer: true },
     inclusion: {
       in: 0..23,
-      message: t("preference.notification_delivery_hour.range")
+      message: I18n.t("preference.notification_delivery_hour.range")
     }
 end
