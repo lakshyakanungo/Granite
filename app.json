@@ -1,5 +1,5 @@
 {
-  "name": "granite-project",
+  "name": "granite",
   "scripts": {},
   "stack": "heroku-22",
   "env": {
