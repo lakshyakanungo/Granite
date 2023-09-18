@@ -95,5 +95,9 @@
   },
   "scripts": {
     "prepare": "husky install"
+  },
+  "engines": {
+    "node": "18.12",
+    "yarn": "1.22.x"
   }
 }
