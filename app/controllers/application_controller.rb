@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
       render_error(exception, :internal_server_error)
 
     when ActiveRecord::RecordNotFound
-      render_error("Couldn't find #{exception.model}", :not_found)
+      render_error(t("not_found", entity: exception.model), :not_found)
 
     when ActiveRecord::RecordNotUnique
       render_error(exception.message)
